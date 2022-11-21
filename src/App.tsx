@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Todolist} from "./Todolist";
+import {Todolist} from "./Components/Totolist/Todolist";
 import {v1} from "uuid";
 
 export type TaskType = {
@@ -20,9 +20,18 @@ function App() {
     ])
     const [filter, setFilter] = useState<FilterValueType>('all')
     const [title, setTitle] = useState<string>('')
+    const [error, setError] = useState<null | string>(null)
 
+    const checkBoxOnChangeHandler = (id: string, isDone: boolean) => {
+        let task = tasks.find(f => f.id === id)
+        if (task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
+    }
     const addTask = (title: string) => {
         setTasks([{id: v1(), title: title, isDone: false}, ...tasks])
+
 
     }
     const buttonRemoveOnClickHandler = (id: string) => {
@@ -44,7 +53,11 @@ function App() {
                 buttonFilterOnClickHandler={buttonFilterOnClickHandler}
                 addTask={addTask}
                 title={title}
-                setTitle={setTitle}/>
+                setTitle={setTitle}
+                checkBoxOnChangeHandler={checkBoxOnChangeHandler}
+                error={error}
+                setError={setError}
+                filter={filter}/>
         </div>
     );
 }
