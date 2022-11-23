@@ -1,0 +1,53 @@
+.todolist {
+    display: grid;
+}
+
+.inputAndButton {
+
+}
+
+.input {
+    display: inline-block;
+    border-radius: 5px;
+
+}
+.inputError {
+    display: inline-block;
+    border-radius: 5px;
+    border: 2px solid red;
+}
+.buttonAdd {
+    display: inline-block;
+    margin-left: 5px;
+}
+.error {
+    color: red;
+}
+
+.task {
+    opacity: 0.5;
+    text-decoration: line-through;
+}
+
+.filterButtons {
+
+}
+
+.filterButton {
+    display: inline-block;
+    margin: 5px;
+}
+
+.filterButton button {
+    background-color: aquamarine;
+}
+
+.filterButtonActive {
+    display: inline-block;
+    margin: 5px;
+}
+
+.filterButtonActive button {
+    background-color: blueviolet;
+
+}
