@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
 import {
     AddTodolistAC,
     ChangeTodolistFilterAC,
-    ChangeTodolistTitleAC,
+    ChangeTodolistTitleAC, FilterValuesType,
     RemoveTodolistAC,
-    todolistsReducer
+    todolistsReducer, TodolistType
 } from './todolists-reducer';
 import {v1} from 'uuid';
-import {FilterValuesType, TodolistType} from '../App';
 
 test('correct todolist should be removed', () => {
     let todolistId1 = v1();

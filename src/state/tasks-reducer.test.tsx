@@ -1,6 +1,12 @@
 import {v1} from "uuid";
-import {AddTaskAC, ChangeTasksStatusAC, ChangeTasksTitleAC, RemoveTaskAC, tasksReducer} from "./tasks-reducer";
-import {TasksStateType, TodolistType} from "../App";
+import {
+    AddTaskAC,
+    ChangeTaskStatusAC,
+    ChangeTaskTitleAC,
+    RemoveTaskAC,
+    tasksReducer,
+    TasksStateType
+} from "./tasks-reducer";
 
 let todolistId1 = v1()
 let todolistId2 = v1()
@@ -50,7 +56,7 @@ test('new task must be added to the right toollist', () => {
 })
 
 test('right task must be renamed', ()=> {
-    const action = ChangeTasksTitleAC(todolistId2, '2', newTaskTitle)
+    const action = ChangeTaskTitleAC(todolistId2, '2', newTaskTitle)
     const newTasks = tasksReducer(tasks, action)
 
     expect(newTasks).not.toBe(tasks)
@@ -59,7 +65,7 @@ test('right task must be renamed', ()=> {
 })
 
 test('status of right tusk must be changed', ()=> {
-    const action = ChangeTasksStatusAC(todolistId2, '2', tasks[todolistId2][1].isDone)
+    const action = ChangeTaskStatusAC(todolistId2, '2', tasks[todolistId2][1].isDone)
     const newTasks = tasksReducer(tasks, action)
 
     expect(newTasks).not.toBe(tasks)

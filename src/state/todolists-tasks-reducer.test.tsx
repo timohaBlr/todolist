@@ -1,7 +1,6 @@
-import {AddTodolistAC, RemoveTodolistAC, todolistsReducer} from "./todolists-reducer";
+import {AddTodolistAC, RemoveTodolistAC, todolistsReducer, TodolistType} from "./todolists-reducer";
 import {v1} from "uuid";
-import {TasksStateType, TodolistType} from "../App";
-import {AddTaskAC, tasksReducer} from "./tasks-reducer";
+import {tasksReducer, TasksStateType} from "./tasks-reducer";
 
 let todolistId1 = v1()
 let todolistId2 = v1()
