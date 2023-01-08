@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import {AppRootState} from "./store";
-import {AddTaskAC, ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC} from "./tasks-reducer";
+import {AddTaskAC, ChangeTaskStatusAC, ChangeTaskTitleAC, RemoveTaskAC, TasksStateType} from "./tasks-reducer";
 import {Dispatch} from "redux";
 import {Todolist} from "../Todolist";
 import {
@@ -14,7 +14,7 @@ import {
 
 type mapStateToPropsType = {
     todolists: TodolistType[]
-    //tasks: Array<TaskType>
+    tasks: TasksStateType
 }
 type mapDispatchToPropsType = {
     removeTask: (todolistId: string, id: string) => void
@@ -28,6 +28,7 @@ type mapDispatchToPropsType = {
 const mapStateToProps = (state: AppRootState): mapStateToPropsType => {
     return {
         todolists: state.todolists,
+        tasks: state.tasks
     }
 }
 const mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
