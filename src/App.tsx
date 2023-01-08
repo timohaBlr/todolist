@@ -4,19 +4,22 @@ import {AddItemForm} from './AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
 import {Button, Container, Grid, IconButton, Paper, Toolbar, Typography} from "@mui/material";
 import {Menu} from "@mui/icons-material";
-import {TodolistContainer} from "./state/TodolistContainer";
-import {TodolistType} from "./state/todolists-reducer";
+import {AddTodolistAC, TodolistType} from "./state/todolists-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {AppRootState} from "./state/store";
+import {Todolist} from "./Todolist";
 
 
 type AppPropsType = {
-    todolists: TodolistType[]
-    addTodolist: (title: string) => void
 }
 
 function App(props: AppPropsType) {
 
+const dispatch = useDispatch();
+const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
+
     function addTodolist(title: string) {
-        props.addTodolist(title)
+        dispatch(AddTodolistAC(title))
     }
 
     return (
@@ -37,10 +40,10 @@ function App(props: AppPropsType) {
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
                 <Grid container spacing={3}>
-                    {props.todolists.map(tl => {
+                    {todolists.map(tl => {
                         return <Grid key={tl.id} item>
                             <Paper style={{padding: "10px"}}>
-                                <TodolistContainer
+                                <Todolist
                                     key={tl.id}
                                     id={tl.id}
                                 />
