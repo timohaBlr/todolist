@@ -21,7 +21,7 @@ const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.
     function addTodolist(title: string) {
         dispatch(AddTodolistAC(title))
     }
-const a =2;
+
     return (
         <div className="App">
             <AppBar position="static">
