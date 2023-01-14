@@ -1,15 +1,15 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {IconButton, TextField} from "@mui/material";
 import {AddBox} from "@mui/icons-material";
-import {SuperInput} from "./Components/SuperInput/SuperInput";
 
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    source: string
 }
 
-export function AddItemForm(props: AddItemFormPropsType) {
-
+export const AddItemForm = React.memo(function (props: AddItemFormPropsType) {
+    console.log('AddItemForm from:', props.source)
     let [title, setTitle] = useState("")
     let [error, setError] = useState<string | null>(null)
 
@@ -27,16 +27,14 @@ export function AddItemForm(props: AddItemFormPropsType) {
     }
 
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error) {
+            setError(null);
+        }
         if (e.charCode === 13) {
             addItem();
         }
     }
-
     return <div>
-           {/* <SuperInput title={title}
-                        onChangeCallBack={setTitle}
-                        onKeyPressCallBack={onKeyPressHandler}/>*/}
         <TextField variant="outlined"
                    error={!!error}
                    value={title}
@@ -49,4 +47,4 @@ export function AddItemForm(props: AddItemFormPropsType) {
             <AddBox/>
         </IconButton>
     </div>
-}
+})
