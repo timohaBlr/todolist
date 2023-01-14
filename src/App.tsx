@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useMemo} from 'react';
 import './App.css';
 import {AddItemForm} from './AddItemForm';
 import AppBar from '@mui/material/AppBar/AppBar';
@@ -10,17 +10,21 @@ import {AppRootState} from "./state/store";
 import {Todolist} from "./Todolist";
 
 
-type AppPropsType = {
-}
+const App = React.memo(() => {
+    console.log('App is called')
+    const dispatch = useDispatch();
+    const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
 
-function App(props: AppPropsType) {
 
-const dispatch = useDispatch();
-const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.todolists)
-
-    function addTodolist(title: string) {
+    const addTodolist = useCallback((title: string) => {
         dispatch(AddTodolistAC(title))
-    }
+    }, [])
+
+    const mappedTodoList = useMemo(() => todolists.map(todolist => {
+        return (<Paper style={{padding: "10px"}} key={todolist.id}>
+            <Todolist todolist={todolist}/>
+        </Paper>)
+    }), [todolists])
 
     return (
         <div className="App">
@@ -37,24 +41,14 @@ const todolists = useSelector<AppRootState, Array<TodolistType>>(state => state.
             </AppBar>
             <Container fixed>
                 <Grid container style={{padding: "20px"}}>
-                    <AddItemForm addItem={addTodolist}/>
+                    <AddItemForm source={'app'} addItem={addTodolist}/>
                 </Grid>
                 <Grid container spacing={3}>
-                    {todolists.map(tl => {
-                        return <Grid key={tl.id} item>
-                            <Paper style={{padding: "10px"}}>
-                                <Todolist
-                                    key={tl.id}
-                                    id={tl.id}
-                                />
-                            </Paper>
-                        </Grid>
-                    })
-                    }
+                    {mappedTodoList}
                 </Grid>
             </Container>
         </div>
     );
-}
+})
 
 export default App;

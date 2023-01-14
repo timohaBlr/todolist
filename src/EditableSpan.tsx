@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField/TextField';
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useCallback, useState} from 'react';
 
 
 type EditableSpanPropsType = {
@@ -7,24 +7,32 @@ type EditableSpanPropsType = {
     onChange: (newValue: string) => void
 }
 
-export function EditableSpan(props: EditableSpanPropsType) {
+export const EditableSpan = React.memo((props: EditableSpanPropsType) => {
+    console.log('EditableSpan from:', props.value)
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(props.value);
 
-    const activateEditMode = () => {
+    const activateEditMode = useCallback( () => {
         setEditMode(true);
         setTitle(props.value);
-    }
-    const activateViewMode = () => {
+    },[props.value])
+
+    const activateViewMode = useCallback(() => {
         setEditMode(false);
-        props.onChange(title);
-    }
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
-    }
+            props.onChange(title);
+    },[props.onChange,title])
+
+    const changeTitle = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            setTitle(e.currentTarget.value)
+        },[])
 
     return editMode
-        ?    <TextField variant="outlined"
-                        value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
+        ? <TextField variant="outlined"
+                     autoFocus
+                     value={title}
+                     onChange={changeTitle}
+                     onBlur={activateViewMode}/>
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
-}
+})
+
