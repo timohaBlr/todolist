@@ -34,7 +34,7 @@ const App = React.memo(() => {
                         <Menu/>
                     </IconButton>
                     <Typography variant="h6">
-                        News
+                        New
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
