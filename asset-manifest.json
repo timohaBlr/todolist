@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/https://timohablr.github.io/todolist/static/css/main.9f088a99.css",
-    "main.js": "/https://timohablr.github.io/todolist/static/js/main.9b666fca.js",
-    "index.html": "/https://timohablr.github.io/todolist/index.html",
-    "main.9f088a99.css.map": "/https://timohablr.github.io/todolist/static/css/main.9f088a99.css.map",
-    "main.9b666fca.js.map": "/https://timohablr.github.io/todolist/static/js/main.9b666fca.js.map"
+    "main.css": "/todolist/static/css/main.9f088a99.css",
+    "main.js": "/todolist/static/js/main.9b666fca.js",
+    "index.html": "/todolist/index.html",
+    "main.9f088a99.css.map": "/todolist/static/css/main.9f088a99.css.map",
+    "main.9b666fca.js.map": "/todolist/static/js/main.9b666fca.js.map"
   },
   "entrypoints": [
     "static/css/main.9f088a99.css",
