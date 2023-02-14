@@ -1,6 +1,6 @@
 import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {AddItemForm} from "../AddItemForm";
+import {AddItemForm} from "./AddItemForm";
 import {userEvent, within} from "@storybook/testing-library";
 import {expect} from '@storybook/jest';
 
