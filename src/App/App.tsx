@@ -27,7 +27,6 @@ function App() {
     }, [dispatch])
 
 
-
     const addTodolist = useCallback((title: string) => {
         dispatch(addTodoListTC(title));
     }, [dispatch]);
@@ -49,7 +48,7 @@ function App() {
                 <Grid container style={{padding: '20px'}}>
                     <AddItemForm addItem={addTodolist}/>
                 </Grid>
-               <TodoListsList/>
+                <TodoListsList/>
             </Container>
         </div>
     );

@@ -1,5 +1,5 @@
 import React, {useCallback} from "react";
-import {AppRootStateType, useAppDispatch} from "../state/store";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../state/store";
 import {useSelector} from "react-redux";
 import {
     changeTodolistFilterAC,
@@ -18,8 +18,8 @@ import {TasksStateType} from "../App/App";
 type TodoListsListPropsType = {}
 export const TodoListsList: React.FC<TodoListsListPropsType> = (props) => {
     const dispatch = useAppDispatch();
-    const todolists = useSelector<AppRootStateType, Array<TodolistDomainType>>(state => state.todolists)
-    const tasks = useSelector<AppRootStateType, TasksStateType>(state => state.tasks)
+    const todolists = useAppSelector(state => state.todolists)
+    const tasks = useAppSelector(state => state.tasks)
 
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
