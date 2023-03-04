@@ -1,20 +1,19 @@
-import React, {useCallback} from 'react'
+import React from 'react'
 import './App.css';
-import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import {Menu} from '@mui/icons-material';
-import {addTodoListTC} from '../state/todolists-reducer'
 import {useAppDispatch, useAppSelector} from '../state/store';
 import {TodoListsList} from "../Todolists/TodoListsList";
 import LinearProgress from '@mui/material/LinearProgress';
 import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
 import {TaskDomainType} from "../state/tasks-reducer";
+import {Routes, Route, Navigate, useNavigate} from 'react-router-dom'
+import {Login} from "../features/Login/Login";
 
 
 export type TasksStateType = {
@@ -25,11 +24,11 @@ export type TasksStateType = {
 function App() {
     const dispatch = useAppDispatch();
     const status = useAppSelector(state => state.app.status)
+    const navigate = useNavigate()
 
-
-    const addTodolist = useCallback((title: string) => {
-        dispatch(addTodoListTC(title));
-    }, [dispatch]);
+    const toLoginClick = () => {
+        navigate('/login')
+    }
 
     return (
         <div className="App">
@@ -41,17 +40,19 @@ function App() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Button color="inherit" onClick={toLoginClick}>Login</Button>
                 </Toolbar>
                 {status === 'loading'
                     ? <LinearProgress/>
                     : <div className={'loader'}/>}
             </AppBar>
             <Container fixed>
-                <Grid container style={{padding: '20px'}}>
-                    <AddItemForm addItem={addTodolist}/>
-                </Grid>
-                <TodoListsList/>
+                <Routes>
+                    <Route path={'/'} element={<TodoListsList/>}/>
+                    <Route path={'/login'} element={<Login/>}/>
+                    <Route path='/404' element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path='*' element={<Navigate to={'/404'}/>}/>
+                </Routes>
             </Container>
             <ErrorSnackbar/>
         </div>

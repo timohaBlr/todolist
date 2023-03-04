@@ -1,6 +1,7 @@
 import React, {useCallback, useEffect} from "react";
-import { useAppDispatch, useAppSelector} from "../state/store";
+import {useAppDispatch, useAppSelector} from "../state/store";
 import {
+    addTodoListTC,
     changeTodolistFilterAC, fetchTodoListsTC,
     FilterValuesType,
     removeTodoListTC,
@@ -11,6 +12,7 @@ import {TaskStatuses} from "../api/todolists-api";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import {Todolist} from "./Todolist/Todolist";
+import {AddItemForm} from "../components/AddItemForm/AddItemForm";
 
 type TodoListsListPropsType = {}
 export const TodoListsList: React.FC<TodoListsListPropsType> = ({}) => {
@@ -23,6 +25,9 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({}) => {
     const todolists = useAppSelector(state => state.todolists)
     const tasks = useAppSelector(state => state.tasks)
 
+    const addTodolist = useCallback((title: string) => {
+        dispatch(addTodoListTC(title));
+    }, [dispatch]);
 
     const removeTask = useCallback(function (id: string, todolistId: string) {
         dispatch(removeTaskTC(id, todolistId));
@@ -53,6 +58,9 @@ export const TodoListsList: React.FC<TodoListsListPropsType> = ({}) => {
         dispatch(renameTodoListTC(id, title));
     }, [dispatch]);
     return <>
+        <Grid container style={{padding: '20px'}}>
+            <AddItemForm addItem={addTodolist}/>
+        </Grid>
         <Grid container spacing={3}>
             {
                 todolists.map(tl => {
