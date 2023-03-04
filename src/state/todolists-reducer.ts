@@ -77,7 +77,7 @@ export const addTodoListTC = (title: string) => (dispatch: Dispatch) => {
 }
 
 export const removeTodoListTC = (todolistId: string) => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    // dispatch(setAppStatusAC('loading'))
     dispatch(toggleTodoListEntityStatusAC(todolistId, 'loading'))
     todolistsAPI.deleteTodolist(todolistId)
         .then(res => {
@@ -97,7 +97,7 @@ export const removeTodoListTC = (todolistId: string) => (dispatch: Dispatch) => 
 
 }
 export const renameTodoListTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    // dispatch(setAppStatusAC('loading'))
     dispatch(toggleTodoListEntityStatusAC(todolistId, 'loading'))
     todolistsAPI.updateTodolist(todolistId, title)
         .then(res => {

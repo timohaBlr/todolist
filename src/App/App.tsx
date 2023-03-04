@@ -43,7 +43,9 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
-                {status==='loading'&&<LinearProgress/>}
+                {status === 'loading'
+                    ? <LinearProgress/>
+                    : <div className={'loader'}/>}
             </AppBar>
             <Container fixed>
                 <Grid container style={{padding: '20px'}}>
@@ -51,7 +53,7 @@ function App() {
                 </Grid>
                 <TodoListsList/>
             </Container>
-                    <ErrorSnackbar/>
+            <ErrorSnackbar/>
         </div>
     );
 }

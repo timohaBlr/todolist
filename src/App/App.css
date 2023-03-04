@@ -1,9 +1,15 @@
-/*
+
 .App {
-  padding: 30px;
-  display: flex;
+    /*padding: 30px;*/
+    /*display: flex;*/
+    position: relative;
 }
 
+.loader {
+    height: 4px;
+}
+
+/*
 .App > div {
   margin-right: 50px;
 }
