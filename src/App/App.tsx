@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback} from 'react'
 import './App.css';
 import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import AppBar from '@mui/material/AppBar';
@@ -9,22 +9,22 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {Menu} from '@mui/icons-material';
-import {addTodoListTC, fetchTodoListsTC} from '../state/todolists-reducer'
-import {useAppDispatch} from '../state/store';
-import {TaskType} from '../api/todolists-api'
+import {addTodoListTC} from '../state/todolists-reducer'
+import {useAppDispatch, useAppSelector} from '../state/store';
 import {TodoListsList} from "../Todolists/TodoListsList";
+import LinearProgress from '@mui/material/LinearProgress';
+import {ErrorSnackbar} from "../components/ErrorSnackbar/ErrorSnackbar";
+import {TaskDomainType} from "../state/tasks-reducer";
 
 
 export type TasksStateType = {
-    [key: string]: Array<TaskType>
+    [key: string]: Array<TaskDomainType>
 }
 
 
 function App() {
     const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(fetchTodoListsTC())
-    }, [dispatch])
+    const status = useAppSelector(state => state.app.status)
 
 
     const addTodolist = useCallback((title: string) => {
@@ -43,6 +43,7 @@ function App() {
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
+                {status==='loading'&&<LinearProgress/>}
             </AppBar>
             <Container fixed>
                 <Grid container style={{padding: '20px'}}>
@@ -50,6 +51,7 @@ function App() {
                 </Grid>
                 <TodoListsList/>
             </Container>
+                    <ErrorSnackbar/>
         </div>
     );
 }

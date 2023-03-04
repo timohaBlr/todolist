@@ -1,0 +1,13 @@
+.todoList {
+    position: relative;
+}
+
+.loading {
+    opacity: 0.5;
+}
+
+.loader {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
