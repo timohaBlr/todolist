@@ -7,7 +7,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {Form, Formik, FormikHelpers} from 'formik'
+import {Form, Formik, FormikHelpers, useFormik} from 'formik'
 
 type FormikValues = {
     email: string
@@ -16,6 +16,32 @@ type FormikValues = {
 }
 
 export const Login = () => {
+
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            rememberMe: false,
+        },
+        onSubmit: (
+            values: FormikValues,
+            {setSubmitting}: FormikHelpers<FormikValues>
+        ) => {
+            setTimeout(() => {
+                alert(JSON.stringify(values, null, 2));
+                setSubmitting(false);
+            }, 500);
+        }
+    })
+    const validate = (values: FormikValues)=>{
+        const errors = {};
+        if (!values.email){
+            errors.email = 'Required';
+        } else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+            errors.email = 'Invalid email address';
+        }
+    }
+
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <FormControl>
@@ -30,36 +56,37 @@ export const Login = () => {
                     <p>Password: free</p>
                 </FormLabel>
 
-                <Formik initialValues={
-                    {
-                        email: '',
-                        password: '',
-                        rememberMe: false,
-                    }}
-                        onSubmit={(
-                            values: FormikValues,
-                            {setSubmitting}: FormikHelpers<FormikValues>
-                        ) => {
-                            setTimeout(() => {
-                                alert(JSON.stringify(values, null, 2));
-                                setSubmitting(false);
-                            }, 500);
-                        }
-                        }
-                >
-                    <Form>
-                        <FormGroup>
-                            <TextField label="Email" margin="normal"/>
-                            <TextField type="password" label="Password"
-                                       margin="normal"
-                            />
-                            <FormControlLabel label={'Remember me'} control={<Checkbox/>}/>
-                            <Button type={'submit'} variant={'contained'} color={'primary'}>
-                                Login
-                            </Button>
-                        </FormGroup>
-                    </Form>
-                </Formik>
+                <form onSubmit={formik.handleSubmit}>
+                    <FormGroup>
+                        <TextField label="Email" margin="normal"
+                                   name={'email'}
+                                   id={'email'}
+                                   value={formik.values.email}
+                                   onChange={formik.handleChange}
+                        />
+
+                        <TextField type="password" label="Password"
+                                   margin="normal"
+                                   name={'password'}
+                                   id={'password'}
+                                   value={formik.values.password}
+                                   onChange={formik.handleChange}
+                        />
+
+                        <FormControlLabel label={'Remember me'}
+                                          control={<Checkbox/>}
+                                          name={'rememberMe'}
+                                          id={'rememberMe'}
+                                          value={formik.values.rememberMe}
+                                          onChange={formik.handleChange}
+                        />
+
+                        <Button type={'submit'} variant={'contained'} color={'primary'}>
+                            Login
+                        </Button>
+
+                    </FormGroup>
+                </form>
 
 
             </FormControl>
